@@ -57,12 +57,14 @@ public class PapiDDExpansion extends PlaceholderExpansion {
         }
 
         if (params.startsWith("completion_")) {
-            String dungeonID = params.substring(11).toUpperCase();
+            String dungeonID = params.substring(11);
             return String.valueOf(playerDataUtil.getPlayerCompletionData(player.getUniqueId().toString(), dungeonID));
         }
         else if (params.startsWith("time_")) {
-            String dungeonID = params.substring(5).toUpperCase();
-            return String.valueOf(playerDataUtil.getPlayerTimerData(player.getUniqueId().toString(), dungeonID));
+            String dungeonID = params.substring(5);
+            int milliTime = playerDataUtil.getPlayerTimerData(player.getUniqueId().toString(), dungeonID);
+            double time = milliTime / 1000.0;
+            return String.format("%.2f", time);
         }
 
         return null;

@@ -103,8 +103,8 @@ public class StartDungeon implements CommandExecutor {
 
          Bukkit.getScheduler().runTaskLater(plugin, () -> {
             RunningDungeonInfo currentRunningDungeonInfo = playerDataUtil.getPlayerDungeonRunData(player.getUniqueId().toString());
-            if (startTime == currentRunningDungeonInfo.getStartTime() && currentRunningDungeonInfo.getIsRunning()) {
-                player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> <red> You failed the " + dungeonInfo.getName() + " dungeon."));
+            if (startTime == currentRunningDungeonInfo.getStartTime() && dungeonInfo.isOccupied()) {
+                player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> <red> You ran out of time for the " + dungeonInfo.getName() + " dungeon."));
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "dungeondesignerend " + dungeonInfo.getName() + " " + dungeonInfo.getInstance() + " " + player.getName());
             }
         }, 20L * dungeonInfo.getMaxRunTime());

@@ -25,25 +25,33 @@
 #
 #                        List of Commands
 #
-#                           ddstart
+#              ddstart <dungeon> <instance> <player>
+#            Start a dungeon run for a specific player
 #           Required permission: dungeondesigner.manage
-#                    Example usage: /ddstart
+#           Example usage: /ddstart TestDungeon 1 WIX3Y
 #
-#                           ddunlock
+#        ddunlock <dungeon> <instance> <reward-id> <player>
+#         Unlocks a dungeon gate and reward for a specific
+#                    player running a dungeon
 #           Required permission: dungeondesigner.manage
-#                    Example usage: /ddunlock
+#          Example usage: /ddunlock TestDungeon 1 0 WIX3Y
 #
-#                           ddreward
+#             ddreward <dungeon> <instance> <player>
+#       Sets a dungeon as completed for a player, calculating
+#          the dungeon run time and closing the main gate
 #           Required permission: dungeondesigner.manage
-#                    Example usage: /ddreward
+#           Example usage: /ddreward TestDungeon 1 WIX3Y
 #
-#                            ddrend
+#              ddend <dungeon> <instance> <player>
+#        Stops a dungeon run and sets dungeon as unoccupied
 #           Required permission: dungeondesigner.manage
-#                    Example usage: /ddrend
+#           Example usage: /ddend TestDungeon 1 WIX3Y
 #
-#                          ddaddreward
+#           ddaddreward <dungeon-id> <reward-id> <chance>
+#         Add a reward to a specific loot chest loot table
+#                     for a specific dungeon
 #          Required permission: dungeondesigner.addreward
-#                   Example usage: /ddaddreward
+#           Example usage: /ddaddreward TestDungeon 0 1
 #
 #                           ddreload
 #           Reloads the config file, a server restart is

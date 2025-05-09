@@ -66,10 +66,10 @@ public class PlayerDataUtil {
         }
 
         if (playerDataCacheTimer.get(uuid).containsKey(dungeonID)) {
-            AmountWriteChecked completionData = playerDataCacheTimer.get(uuid).get(dungeonID);
-            if (completionData.getAmount() > amount) {
-                completionData.setAmount(amount);
-                completionData.setDirty(true);
+            AmountWriteChecked timerData = playerDataCacheTimer.get(uuid).get(dungeonID);
+            if (timerData.getAmount() > amount) {
+                timerData.setAmount(amount);
+                timerData.setDirty(true);
             }
         }
         else {
