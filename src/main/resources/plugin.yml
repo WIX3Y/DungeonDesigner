@@ -1,0 +1,49 @@
+name: DungeonDesigner
+version: '1.0.0'
+main: wix3y.dungeonDesigner.DungeonDesigner
+api-version: '1.21'
+authors: [ WIX3Y ]
+description: Adds functionalities to support dungeon creation
+softdepend: ["LuckPerms"]
+depend: ["PlaceholderAPI"]
+commands:
+  ddreload:
+    description: Reloads the plugin
+    usage: /ddreload
+    aliases: dungeondesignerreload
+    permission: dungeondesigner.reload
+  ddaddreward:
+    description: Adds a new item as a possible reward for a specific dungeon loot chest
+    usage: /ddaddreward
+    aliases: [dungeondesigneraddreward, ddadd, dungeondesigneradd]
+    permission: dungeondesigner.addreward
+  ddstart:
+    description: Starts a dungeon run for a specific player in a specific dungeon instance
+    usage: /ddstart
+    aliases: dungeondesignerstart
+    permission: dungeondesigner.manage
+  ddreward:
+    description: Stops the timer in a dungeon for a specific player
+    usage: /ddreward
+    aliases: dungeondesignerreward
+    permission: dungeondesigner.manage
+  ddend:
+    description: Stops and resets a dungeon for a specific player in a specific dungeon instance
+    usage: /ddend
+    aliases: dungeondesignerend
+    permission: dungeondesigner.manage
+  ddunlock:
+    description: Unlocks a gate for a specific player in a specific dungeon instance
+    usage: /ddunlock
+    aliases: dungeondesignerunlock
+    permission: dungeondesigner.manage
+permissions:
+  dungeondesigner.reload:
+    description: "Allows using the /ddreload command."
+    default: op
+  dungeondesigner.addreward:
+    description: "Allows using the /ddaddreward command."
+    default: op
+  dungeondesigner.manage:
+    description: "Allows using the /ddstart, /ddreward and ddend commands."
+    default: op

@@ -1,0 +1,135 @@
+#
+#   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#
+#                     How to set up a dungeon
+#
+#     Fill in the correct coordinates in the dungeons config
+#
+# Add rewards to the dungeons loot chests by executing the command
+#         /ddaddreward <dungeon-id> <reward-id> <chance>
+#                while holding the reward item
+#
+#      Set up a world guard region for the dungeon entrance
+#
+#        Upon player entering the region execute command
+#             /ddstart <dungeon> <instance> <player>
+#
+#        Set up a world guard region for the dungeon exit
+#
+#        Upon player entering the region execute command
+#              /ddend <dungeon> <instance> <player>
+#
+#   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#
+
+# name of dungeon should match the file name
+TestDungeon:
+  # Which world the dungeon is located in
+  WorldLocation: world
+  # The coordinate (as an integer) for the position that the player gets teleported to upon exiting the dungeon
+  ExitPoint: [0, 100, 0]
+  # Maximum number of seconds a player is allowed to run a dungeon before being "kicked out"
+  MaxRunTime: 60
+  DefaultReward:
+    # Number of rewards to be placed in the chest (max of 27 rewards)
+    NumberOfRewards: 3
+    # List of itemstacks to chose rewards from
+    Rewards: []
+    # List of integer chances for each above reward to be picked
+    RewardChances: []
+  # List of commands to be executed upon player entering the dungeon (commands have placeholder api support)
+  StartupCommands:
+    - say hello world
+    - tell WIX3Y test
+  # List of commands to be executed upon player exiting the dungeon (commands have placeholder api support)
+  ExitCommands:
+    - tell %player_name% bye
+  BonusRewards:
+    1:
+      # Number of rewards to be placed in the chest (max of 27 rewards)
+      NumberOfRewards: 2
+      # List of itemstacks to chose rewards from
+      Rewards: []
+      # List of integer chances for each above reward to be picked
+      RewardChances: []
+    2:
+      NumberOfRewards: 5
+      Rewards: []
+      RewardChances: []
+    3:
+      NumberOfRewards: 2
+      Rewards: [ ]
+      RewardChances: [ ]
+  # Coordiantes for different functional blocks/areas in each dungeon instance
+  Instances:
+    1:
+      # The coordinate (as an integer) for the position in the dungeon the player starts at
+      StartPoint: [100, 100, 100]
+      #  The coordinate (as an integer) for the position of the pressure plate that stops the timer
+      EndPoint: [200, 200, 200]
+      DungeonArea:
+        # The coordinate (as an integer) for a corner of the dungeon instance
+        Start: [0, 0, 0]
+        # The coordinate (as an integer) for the opposite corner of the start-point of the dungeon instance
+        End: [300, 300, 300]
+      GateArea:
+        # The coordinate (as an integer) for a corner of the dungeons main gate
+        Start: [100, 0, 100]
+        # The coordinate (as an integer) for the opposite corner of the start-point of the dungeons main gate
+        End: [110, 10, 110]
+      # The coordinates (as integers) for the keys to the main gate (blocks to be clicked for the main gate to open)
+      GateKeys:
+        1: [ 1, 1, 1 ]
+        2: [ 2, 2, 2 ]
+        3: [ 3, 3, 3 ]
+      # The location of the default reward chest
+      RewardChest: [100, 5, 105]
+      Bonuses:
+        1:
+          GateArea:
+            Start: [ 100, 0, 100 ]
+            End: [ 110, 10, 110 ]
+          GateKeys:
+            1: [ 1, 1, 1 ]
+            2: [ 2, 2, 2 ]
+            3: [ 3, 3, 3 ]
+          RewardChest: [100, 5, 105]
+        2:
+          GateArea:
+            Start: [ 100, 0, 100 ]
+            End: [ 110, 10, 110 ]
+          GateKeys:
+            1: [ 1, 1, 1 ]
+            2: [ 2, 2, 2 ]
+          RewardChest: [100, 5, 105]
+    2:
+      StartPoint: [400, 100, 400]
+      EndPoint: [500, 200, 500]
+      DungeonArea:
+        Start: [300, 0, 300]
+        End: [600, 300, 600]
+      GateArea:
+        Start: [ 100, 0, 100 ]
+        End: [ 110, 10, 110 ]
+      GateKeys:
+        1: [ 1, 1, 1 ]
+        2: [ 2, 2, 2 ]
+        3: [ 3, 3, 3 ]
+      RewardChest: [100, 5, 105]
+      Bonuses:
+        1:
+          GateArea:
+            Start: [ 100, 0, 100 ]
+            End: [ 110, 10, 110 ]
+          GateKeys:
+            1: [ 1, 1, 1 ]
+            2: [ 2, 2, 2 ]
+          RewardChest: [100, 5, 105]
+        2:
+          GateArea:
+            Start: [ 100, 0, 100 ]
+            End: [ 110, 10, 110 ]
+          GateKeys:
+            1: [ 1, 1, 1 ]
+            2: [ 2, 2, 2 ]
+          RewardChest: [ 100, 5, 105 ]

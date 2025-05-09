@@ -1,0 +1,67 @@
+#
+#   ┏━━━━━━━━━━━━━━━━━━━━━━━━ ⊹ ☆ ⊹ ━━━━━━━━━━━━━━━━━━━━━━━━┓
+#
+#                        Dungeon Designer
+#        Source: https://github.com/WIX3Y/DungeonDesigner
+#                          Author: WIX3Y
+#
+#   ┗━━━━━━━━━━━━━━━━━━━━━━━━ ⊹ ☆ ⊹ ━━━━━━━━━━━━━━━━━━━━━━━━┛
+#
+#   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#
+#                      List of Placeholders
+#
+#                      DD_time_testdungeon
+#         Player's fastest completion for specific dungeon
+#              Example usage: %DD_time_testdungeon%
+#
+#                    DD_completion_testdungeon
+#     Player's max completion percentage for specific dungeon
+#            Example usage: %DD_completion_testdungeon%
+#
+#   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#
+#   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+#
+#                        List of Commands
+#
+#                           ddstart
+#           Required permission: dungeondesigner.manage
+#                    Example usage: /ddstart
+#
+#                           ddunlock
+#           Required permission: dungeondesigner.manage
+#                    Example usage: /ddunlock
+#
+#                           ddreward
+#           Required permission: dungeondesigner.manage
+#                    Example usage: /ddreward
+#
+#                            ddrend
+#           Required permission: dungeondesigner.manage
+#                    Example usage: /ddrend
+#
+#                          ddaddreward
+#          Required permission: dungeondesigner.addreward
+#                   Example usage: /ddaddreward
+#
+#                           ddreload
+#           Reloads the config file, a server restart is
+#            required to apply changes to the database
+#           Required permission: dungeondesigner.reload
+#                    Example usage: /ddreload
+#
+#   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+#
+
+# Do not change
+config-version: 1
+
+MySQL:
+  ip: localhost
+  port: 3306
+  database: dungeon_designer
+  username: root
+  password: password
+  poolsize: 10
+  updatefreq: 2000 # How often to write to mysql database in ticks

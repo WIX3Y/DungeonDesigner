@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="DungeonDesigner:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DungeonDesigner_jar</output-path>
+    <root id="archive" name="DungeonDesigner.jar">
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/5.1.0/HikariCP-5.1.0.jar" path-in-jar="/" />
+      <element id="module-output" name="DungeonDesigner.main" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/config.yml" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+      <element id="directory" name="dungeons">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/dungeons/testdungeon.yml" />
+      </element>
+    </root>
+  </artifact>
+</component>
