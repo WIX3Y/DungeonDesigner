@@ -44,7 +44,7 @@ public class DatabaseManager {
      * Add any missing table or columns
      *
      * @param table the table name
-     * @param columnNames list of quest column names
+     * @param columnNames list of column names
      * @param defaultValue the default value to set if the column does not exist
      */
     public void initialize(String table, List<String> columnNames, int defaultValue) {
@@ -55,7 +55,7 @@ public class DatabaseManager {
 
         StringBuilder columns = new StringBuilder();
         for (String columnName : columnNames) {
-            columns.append(columnName).append(" INT DEFAULT " + defaultValue + ", ");
+            columns.append(columnName).append(" INT DEFAULT ").append(defaultValue).append(", ");
         }
 
         try (Connection connection = dataSource.getConnection();
@@ -173,59 +173,6 @@ public class DatabaseManager {
             plugin.getLogger().severe("Failed to fetch data for player " + Bukkit.getPlayer(UUID.fromString(uuid)) + " from table " + table + "!");
             e.printStackTrace();
             return null;
-        }
-    }
-
-    /**
-     * Fetch all player data for specific player from specified table in MySQL database
-     *
-     * @param uuid the player's uuid
-     * @param table the name of the table
-     * @param database the name of the database
-     * @return the player data
-     */
-    public List<String> getPlayerDataFromTabel(String uuid, String table, String database) {
-        try (Connection connection = dataSource.getConnection()) {
-            // Check if the table exists
-            PreparedStatement checkTableExistQuery = connection.prepareStatement(
-                    "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = ? AND table_name = ?"
-            );
-            checkTableExistQuery.setString(1, database);
-            checkTableExistQuery.setString(2, table);
-            ResultSet tableExistsRS = checkTableExistQuery.executeQuery();
-
-            tableExistsRS.next();
-            boolean tableExists = tableExistsRS.getInt(1) > 0;
-            if (!tableExists) {
-                return List.of("<red>Table " + table + " does not exist.");
-            }
-
-            // Check if the row exists in the table
-            PreparedStatement checkRowExistQuery = connection.prepareStatement(
-                    "SELECT * FROM " + table + " WHERE Player_UUID = ?"
-            );
-            checkRowExistQuery.setString(1, uuid);
-            ResultSet rowExistsRS = checkRowExistQuery.executeQuery();
-
-            boolean rowExists = rowExistsRS.next();
-            if(!rowExists) {
-                return List.of("<red>Player " + Bukkit.getOfflinePlayer(UUID.fromString(uuid)) + " does not exist in table " + table + ".");
-            }
-
-            List<String> playerData = new ArrayList<>();
-            ResultSetMetaData meta = rowExistsRS.getMetaData();
-            int columnCount = meta.getColumnCount();
-            for (int i = 1; i <= columnCount; i++) {
-                String columnName = meta.getColumnName(i);
-                String value = String.valueOf(rowExistsRS.getObject(i));
-                playerData.add("<reset><gray>" + columnName + ": <yellow>" + value);
-            }
-            return playerData;
-
-        } catch (Exception e) {
-            plugin.getLogger().severe("Failed to fetch player data.");
-            e.printStackTrace();
-            return List.of("<red>Failed to fetch player data.");
         }
     }
 

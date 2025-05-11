@@ -131,7 +131,7 @@ public class ConfigUtil {
                 bonusRewardChances.add(bonusRewardChance);
 
                 // List of Bonus Number of Rewards
-                int numbBonusRewards = config.contains(dungeonName + ".BonusRewards" + bonusReward + ".NumberOfRewards") ? config.getInt(dungeonName + ".BonusRewards" + bonusReward + ".NumberOfRewards") : 1;
+                int numbBonusRewards = config.contains(dungeonName + ".BonusRewards." + bonusReward + ".NumberOfRewards") ? config.getInt(dungeonName + ".BonusRewards" + bonusReward + ".NumberOfRewards") : 1;
                 bonusNumbRewards.add(numbBonusRewards);
             }
 
@@ -148,7 +148,7 @@ public class ConfigUtil {
                 String basePath = dungeonName + ".Instances." + instanceInt;
 
                 // Max Run Time
-                int maxRunTime = config.contains(basePath + ".MaxRunTime") ? config.getInt(basePath + ".MaxRunTime") : 60;
+                int maxRunTime = config.contains(dungeonName + ".MaxRunTime") ? config.getInt(dungeonName + ".MaxRunTime") : 60;
 
                 // Dungeon Area
                 List<Integer> dungeonAreaStart = config.contains(basePath + ".DungeonArea.Start") ? config.getIntegerList(basePath + ".DungeonArea.Start") : new ArrayList<>();
