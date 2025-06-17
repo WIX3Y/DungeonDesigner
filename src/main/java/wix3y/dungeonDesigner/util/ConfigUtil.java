@@ -131,7 +131,7 @@ public class ConfigUtil {
                 bonusRewardChances.add(bonusRewardChance);
 
                 // List of Bonus Number of Rewards
-                int numbBonusRewards = config.contains(dungeonName + ".BonusRewards." + bonusReward + ".NumberOfRewards") ? config.getInt(dungeonName + ".BonusRewards" + bonusReward + ".NumberOfRewards") : 1;
+                int numbBonusRewards = config.contains(dungeonName + ".BonusRewards." + bonusReward + ".NumberOfRewards") ? config.getInt(dungeonName + ".BonusRewards." + bonusReward + ".NumberOfRewards") : 1;
                 bonusNumbRewards.add(numbBonusRewards);
             }
 

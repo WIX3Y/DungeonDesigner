@@ -10,6 +10,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import wix3y.dungeonDesigner.commands.*;
+import wix3y.dungeonDesigner.handlers.PlayerDeathHandler;
 import wix3y.dungeonDesigner.handlers.PlayerInteractHandler;
 import wix3y.dungeonDesigner.handlers.PlayerJoinHandler;
 import wix3y.dungeonDesigner.handlers.PlayerQuitHandler;
@@ -29,6 +30,8 @@ public final class DungeonDesigner extends JavaPlugin {
     private PlayerDataUtil playerDataUtil;
     private ConfigUtil configUtil;
     private PlayerInteractHandler playerInteractHandler;
+    private PlayerQuitHandler playerQuitHandler;
+    private PlayerDeathHandler playerDeathHandler;
     private StartDungeon startDungeonCommand;
     private DungeonReward dungeonRewardCommand;
     private EndDungeon endDungeonCommand;
@@ -49,7 +52,8 @@ public final class DungeonDesigner extends JavaPlugin {
         playerDataUtil = new PlayerDataUtil(this, databaseManager, configUtil.getUniqueDungeons());
 
         new PlayerJoinHandler(this, playerDataUtil);
-        new PlayerQuitHandler(this, playerDataUtil);
+        playerQuitHandler = new PlayerQuitHandler(this, playerDataUtil, configUtil);
+        playerDeathHandler = new PlayerDeathHandler(this, playerDataUtil, configUtil);
         playerInteractHandler = new PlayerInteractHandler(this, playerDataUtil, configUtil);
 
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
@@ -113,6 +117,8 @@ public final class DungeonDesigner extends JavaPlugin {
         dungeonRewardCommand.reloadConfigUtil(configUtil);
         endDungeonCommand.reloadConfigUtil(configUtil);
         unlockGateCommand.reloadConfigUtil(configUtil);
+        playerQuitHandler.reloadConfigUtil(configUtil);
+        playerDeathHandler.reloadConfigUtil(configUtil);
     }
 
     private void createTestDungeon() {
@@ -148,7 +154,7 @@ public final class DungeonDesigner extends JavaPlugin {
         Bukkit.getConsoleSender().sendMessage("");
     }
 
-    private void forceExit(Player player, DungeonInfo dungeonInfo) {
+    public void forceExit(Player player, DungeonInfo dungeonInfo) {
         for (String exitCmd: dungeonInfo.getExitCommands()) {
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), parsePlaceholders(player, exitCmd));
         }
