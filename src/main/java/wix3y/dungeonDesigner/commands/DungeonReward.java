@@ -75,7 +75,8 @@ public class DungeonReward implements CommandExecutor {
         }
 
         runningDungeonInfo.setIsRunning(false);
-        long milliTime = System.currentTimeMillis() - runningDungeonInfo.getStartTime();
+        long startTime = runningDungeonInfo.getStartTime();
+        long milliTime = System.currentTimeMillis() - startTime;
         double time = milliTime / 1000.0;
         String formattedTime = String.format("%.2f", time);
         playerDataUtil.decreaseTimer(player, dungeonInfo.getName(), (int) milliTime);
@@ -86,6 +87,30 @@ public class DungeonReward implements CommandExecutor {
         player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> You completed <yellow>" + percentage + "%</yellow> of the " + dungeonInfo.getName() + " dungeon in <yellow>" + formattedTime + "</yellow> seconds!"));
 
         dungeonFinish(player, dungeonInfo);
+
+        // cancel ran out of time task
+        int taskId = runningDungeonInfo.getTaskId();
+        if (taskId != -1) {
+            Bukkit.getScheduler().cancelTask(taskId);
+        }
+
+
+        // give player 5 minutes to collect their loot
+        // warning when 1 minute is left
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            RunningDungeonInfo currentRunningDungeonInfo = playerDataUtil.getPlayerDungeonRunData(player.getUniqueId().toString());
+            if (startTime == currentRunningDungeonInfo.getStartTime() && dungeonInfo.isOccupied()) {
+                player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> <red> You will be kicked out of the dungeon in 1 minute."));
+            }
+        }, 20L * 60 * 4);
+        // kick out of dungeon
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            RunningDungeonInfo currentRunningDungeonInfo = playerDataUtil.getPlayerDungeonRunData(player.getUniqueId().toString());
+            if (startTime == currentRunningDungeonInfo.getStartTime() && dungeonInfo.isOccupied()) {
+                player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> <red> You have been kicked out of the dungeon."));
+                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "dungeondesignerend " + dungeonInfo.getName() + " " + dungeonInfo.getInstance() + " " + player.getName());
+            }
+        }, 20L * 60 * 5);
 
         return true;
     }

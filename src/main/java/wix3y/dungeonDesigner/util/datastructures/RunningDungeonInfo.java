@@ -14,6 +14,7 @@ public class RunningDungeonInfo {
     private Long startTime;
     private Map<Location, Boolean> openedKey;
     private List<Map<Location, Boolean>> openedBonusKeys;
+    private int taskId;
 
     public RunningDungeonInfo () {
         reset();
@@ -33,6 +34,10 @@ public class RunningDungeonInfo {
 
     public Long getStartTime() {
         return startTime;
+    }
+
+    public int getTaskId() {
+        return taskId;
     }
 
     public Map<Location, Boolean> getOpenedKeys() {
@@ -61,6 +66,10 @@ public class RunningDungeonInfo {
 
     public void setStartTime(Long value) {
         startTime = value;
+    }
+
+    public void setTaskId(int id) {
+        taskId = id;
     }
 
     public void initializeKeys(List<Location> locations) {
@@ -104,5 +113,6 @@ public class RunningDungeonInfo {
         startTime = -1L;
         openedKey = new ConcurrentHashMap<>();
         openedBonusKeys = new ArrayList<>();
+        taskId = -1;
     }
 }
