@@ -40,7 +40,7 @@ TestDungeon:
   # List of commands to be executed upon player entering the dungeon (commands have placeholder api support)
   StartupCommands:
     - say hello world
-    - tell WIX3Y test
+    - tell WIX3Y entering dungeon instance {instance}
   # List of commands to be executed upon player exiting the dungeon (commands have placeholder api support)
   ExitCommands:
     - tell %player_name% bye

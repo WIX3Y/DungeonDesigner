@@ -62,7 +62,7 @@ public class EndDungeon implements CommandExecutor {
         }
 
         for (String exitCmd: dungeonInfo.getExitCommands()) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), parsePlaceholders(player, exitCmd));
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), parsePlaceholders(player, exitCmd.replace("{instance}", args[1])));
         }
 
         // teleport player out of the dungeon
