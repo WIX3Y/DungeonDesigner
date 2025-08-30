@@ -42,7 +42,7 @@ public class PlayerQuitHandler implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
         RunningDungeonInfo runningDungeonInfo = playerDataUtil.getPlayerDungeonRunData(player.getUniqueId().toString());
-        if (runningDungeonInfo.getIsRunning()) {
+        if (runningDungeonInfo.getIsRunning() || runningDungeonInfo.getIsLooting()) {
             DungeonInfo dungeonInfo = configUtil.getDungeon(runningDungeonInfo.getDungeonName() + runningDungeonInfo.getDungeonInstance());
             plugin.forceExit(player, dungeonInfo);
             runningDungeonInfo.reset();

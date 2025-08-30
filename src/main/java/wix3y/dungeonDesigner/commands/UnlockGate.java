@@ -1,11 +1,7 @@
 package wix3y.dungeonDesigner.commands;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.command.Command;
@@ -174,6 +170,10 @@ public class UnlockGate implements CommandExecutor {
                 }
             }
         }
+
+        // send feedback to player
+        player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> You have unlocked 1/1 pieces of bonus gate " + rewardID + "!"));
+        player.playSound(player.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 1, 1);
 
         return true;
     }

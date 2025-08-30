@@ -101,14 +101,21 @@ public class StartDungeon implements CommandExecutor {
         long startTime = System.currentTimeMillis();
         runningDungeonInfo.setStartTime(startTime);
 
+        int taskIdWarning = Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            RunningDungeonInfo currentRunningDungeonInfo = playerDataUtil.getPlayerDungeonRunData(player.getUniqueId().toString());
+            if (startTime == currentRunningDungeonInfo.getStartTime() && dungeonInfo.isOccupied()) {
+                player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> <red> You have 1 minute remaining in the dungeon."));
+            }
+        },  Math.max(1, 20L * (dungeonInfo.getMaxRunTime()-60)) ).getTaskId();
+
         int taskId = Bukkit.getScheduler().runTaskLater(plugin, () -> {
             RunningDungeonInfo currentRunningDungeonInfo = playerDataUtil.getPlayerDungeonRunData(player.getUniqueId().toString());
             if (startTime == currentRunningDungeonInfo.getStartTime() && dungeonInfo.isOccupied()) {
-                player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> <red> You ran out of time for the " + dungeonInfo.getName() + " dungeon."));
+                player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> <red> You ran out of time in the " + dungeonInfo.getName() + " dungeon."));
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "dungeondesignerend " + dungeonInfo.getName() + " " + dungeonInfo.getInstance() + " " + player.getName());
             }
         }, 20L * dungeonInfo.getMaxRunTime()).getTaskId();
-        runningDungeonInfo.setTaskId(taskId);
+        runningDungeonInfo.setTaskIds(taskIdWarning, taskId);
 
         return true;
     }

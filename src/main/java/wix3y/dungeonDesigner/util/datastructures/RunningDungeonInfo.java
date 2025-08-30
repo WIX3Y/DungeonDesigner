@@ -9,12 +9,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class RunningDungeonInfo {
     private boolean isRunning;
+    private boolean isLooting;
     private String dungeonName;
     private int dungeonInstance;
     private Long startTime;
     private Map<Location, Boolean> openedKey;
     private List<Map<Location, Boolean>> openedBonusKeys;
     private int taskId;
+    private int taskIdWarning;
 
     public RunningDungeonInfo () {
         reset();
@@ -22,6 +24,10 @@ public class RunningDungeonInfo {
 
     public boolean getIsRunning() {
         return isRunning;
+    }
+
+    public boolean getIsLooting() {
+        return isLooting;
     }
 
     public String getDungeonName() {
@@ -40,6 +46,10 @@ public class RunningDungeonInfo {
         return taskId;
     }
 
+    public int getTaskIdWarning() {
+        return taskIdWarning;
+    }
+
     public Map<Location, Boolean> getOpenedKeys() {
         return openedKey;
     }
@@ -56,6 +66,10 @@ public class RunningDungeonInfo {
         isRunning = value;
     }
 
+    public void setIsLooting(boolean value) {
+        isLooting = value;
+    }
+
     public void setDungeonName(String value) {
         dungeonName = value;
     }
@@ -68,8 +82,9 @@ public class RunningDungeonInfo {
         startTime = value;
     }
 
-    public void setTaskId(int id) {
+    public void setTaskIds(int id, int idWarning) {
         taskId = id;
+        taskIdWarning = idWarning;
     }
 
     public void initializeKeys(List<Location> locations) {
@@ -108,11 +123,13 @@ public class RunningDungeonInfo {
 
     public void reset() {
         isRunning = false;
+        isLooting = false;
         dungeonName = "";
         dungeonInstance = -1;
         startTime = -1L;
         openedKey = new ConcurrentHashMap<>();
         openedBonusKeys = new ArrayList<>();
         taskId = -1;
+        taskIdWarning = -1;
     }
 }

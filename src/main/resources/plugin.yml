@@ -4,7 +4,6 @@ main: wix3y.dungeonDesigner.DungeonDesigner
 api-version: '1.21'
 authors: [ WIX3Y ]
 description: Adds functionalities to support dungeon creation
-softdepend: ["LuckPerms"]
 depend: ["PlaceholderAPI"]
 commands:
   ddreload:
