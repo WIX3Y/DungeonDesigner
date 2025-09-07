@@ -85,7 +85,11 @@ public class StartDungeon implements CommandExecutor {
         player.teleport(dungeonInfo.getStartPoint());
 
         for (String startupCmd: dungeonInfo.getStartupCommands()) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), parsePlaceholders(player, startupCmd.replace("{instance}", args[1])));
+            Bukkit.getScheduler().runTaskLater(
+                    plugin,
+                    () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), parsePlaceholders(player, startupCmd.replace("{instance}", args[1]))),
+                    20L
+            );
         }
 
         RunningDungeonInfo runningDungeonInfo = playerDataUtil.getPlayerDungeonRunData(player.getUniqueId().toString());
