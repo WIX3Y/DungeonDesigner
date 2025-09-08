@@ -153,7 +153,7 @@ public class PlayerDataUtil {
             return playerDataCacheTimer.get(uuid).get(dungeon).getAmount();
         } catch (NullPointerException e) {
             plugin.getLogger().warning("Timer for dungeon " + dungeon + " for player " + Bukkit.getPlayer(UUID.fromString(uuid)) + " does not exist in cache!");
-            return 3600000;
+            return -1;
         }
     }
 
@@ -169,7 +169,7 @@ public class PlayerDataUtil {
             return playerDataCacheCompletion.get(uuid).get(dungeon).getAmount();
         } catch (NullPointerException e) {
             plugin.getLogger().warning("Completion for dungeon " + dungeon + " for player " + Bukkit.getPlayer(UUID.fromString(uuid)) + " does not exist in cache!");
-            return 0;
+            return -1;
         }
     }
 
