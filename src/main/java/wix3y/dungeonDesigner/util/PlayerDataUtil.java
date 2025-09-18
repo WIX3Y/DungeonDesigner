@@ -17,6 +17,7 @@ public class PlayerDataUtil {
     private final List<String> allDungeons;
     private final Map<String, Map<String, AmountWriteChecked>> playerDataCacheTimer = new ConcurrentHashMap<>();
     private final Map<String, Map<String, AmountWriteChecked>> playerDataCacheCompletion = new ConcurrentHashMap<>();
+    private final Map<String, Map<String, AmountWriteChecked>> playerDataCacheNumbRuns = new ConcurrentHashMap<>();
     private final Map<String, RunningDungeonInfo> playerDataDungeonRun = new ConcurrentHashMap<>();
 
     public PlayerDataUtil(DungeonDesigner plugin, DatabaseManager databaseManager, List<String> allDungeons) {
@@ -49,6 +50,29 @@ public class PlayerDataUtil {
             else {
                 plugin.getLogger().severe("Player " + player.getName() + " does not have dungeon completion data for dungeon " + dungeonID);
             }
+    }
+
+    /**
+     * Increase number of runs for dungeon for specific player
+     *
+     * @param player the player
+     * @param dungeonID ID of the dungeon to increase completion for
+     */
+    public void increaseNumbRuns(Player player, String dungeonID) {
+        String uuid = player.getUniqueId().toString();
+        if (!playerDataCacheNumbRuns.containsKey(uuid)) {
+            plugin.getLogger().warning("Player " + player.getName() + " does not exist in player data cache, adding player...");
+            addPlayerToCache(uuid);
+        }
+
+        if (playerDataCacheNumbRuns.get(uuid).containsKey(dungeonID)) {
+            AmountWriteChecked numbRunsData = playerDataCacheNumbRuns.get(uuid).get(dungeonID);
+            numbRunsData.setAmount(numbRunsData.getAmount() + 1);
+            numbRunsData.setDirty(true);
+        }
+        else {
+            plugin.getLogger().severe("Player " + player.getName() + " does not have dungeon number of runs data for dungeon " + dungeonID);
+        }
     }
 
     /**
@@ -85,8 +109,10 @@ public class PlayerDataUtil {
     public void addPlayerToCache(String uuid) {
         Map<String, AmountWriteChecked> playerCompletionData = databaseManager.getPlayerData("DD_COMPLETION", uuid, allDungeons);
         Map<String, AmountWriteChecked> playerTimerData = databaseManager.getPlayerData("DD_TIMER", uuid, allDungeons);
+        Map<String, AmountWriteChecked> playerNumbRunsData = databaseManager.getPlayerData("DD_NUMB_RUNS", uuid, allDungeons);
         playerDataCacheCompletion.put(uuid, playerCompletionData);
         playerDataCacheTimer.put(uuid, playerTimerData);
+        playerDataCacheNumbRuns.put(uuid, playerNumbRunsData);
         playerDataDungeonRun.put(uuid, new RunningDungeonInfo());
     }
 
@@ -127,6 +153,17 @@ public class PlayerDataUtil {
                 databaseManager.writeInt( "DD_TIMER", uuid, column, amount.getAmount());
             }
         }
+
+        Map<String, AmountWriteChecked> playerNumbRunsData = playerDataCacheNumbRuns.get(uuid);
+        for (String column: playerNumbRunsData.keySet()) {
+            AmountWriteChecked amount = playerNumbRunsData.get(column);
+            if (amount.isDirty()) {
+                amount.setDirty(false);
+                // Asynchronous execution means newer data may be written to the database possibly resulting
+                // in the exact same data being written during the next execution of this method
+                databaseManager.writeInt( "DD_NUMB_RUNS", uuid, column, amount.getAmount());
+            }
+        }
     }
 
     /**
@@ -138,6 +175,7 @@ public class PlayerDataUtil {
         writeToDatabase(uuid);
         playerDataCacheCompletion.remove(uuid);
         playerDataCacheTimer.remove(uuid);
+        playerDataCacheNumbRuns.remove(uuid);
         playerDataDungeonRun.remove(uuid);
     }
 
@@ -169,6 +207,22 @@ public class PlayerDataUtil {
             return playerDataCacheCompletion.get(uuid).get(dungeon).getAmount();
         } catch (NullPointerException e) {
             plugin.getLogger().warning("Completion for dungeon " + dungeon + " for player " + Bukkit.getPlayer(UUID.fromString(uuid)) + " does not exist in cache!");
+            return -1;
+        }
+    }
+
+    /**
+     * Get player dungeon number of runs from cache
+     *
+     * @param uuid uuid of the player
+     * @param dungeon the dungeon ID
+     * @return the players number of runs for the dungeon
+     */
+    public int getPlayerNumbRunsData(String uuid, String dungeon) {
+        try {
+            return playerDataCacheNumbRuns.get(uuid).get(dungeon).getAmount();
+        } catch (NullPointerException e) {
+            plugin.getLogger().warning("Number of runs for dungeon " + dungeon + " for player " + Bukkit.getPlayer(UUID.fromString(uuid)) + " does not exist in cache!");
             return -1;
         }
     }

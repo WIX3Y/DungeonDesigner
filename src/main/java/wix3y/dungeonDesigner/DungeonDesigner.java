@@ -48,6 +48,7 @@ public final class DungeonDesigner extends JavaPlugin {
         databaseManager.connect(config.getString("MySQL.ip"), config.getString("MySQL.port"), config.getString("MySQL.database"), config.getString("MySQL.username"), config.getString("MySQL.password"), config.getInt("MySQL.poolsize"));
         databaseManager.initialize("DD_TIMER", configUtil.getUniqueDungeons(), 3600000); // defaultValue = 1h
         databaseManager.initialize("DD_COMPLETION", configUtil.getUniqueDungeons(), 0);
+        databaseManager.initialize("DD_NUMB_RUNS", configUtil.getUniqueDungeons(), 0);
 
         playerDataUtil = new PlayerDataUtil(this, databaseManager, configUtil.getUniqueDungeons());
 

@@ -85,6 +85,8 @@ public class DungeonReward implements CommandExecutor {
         int percentage = getPercentage(runningDungeonInfo);
         playerDataUtil.increaseCompletion(player, dungeonInfo.getName(), percentage);
 
+        playerDataUtil.increaseNumbRuns(player, dungeonInfo.getName());
+
         player.sendMessage(MiniMessage.miniMessage().deserialize("<dark_gray>[<gradient:#00AA44:#99FFBB:#00AA44>Dungeons</gradient>]</dark_gray> <gray>>> You completed <yellow>" + percentage + "%</yellow> of the " + dungeonInfo.getName() + " dungeon in <yellow>" + formattedTime + "</yellow> seconds!"));
 
         dungeonFinish(player, dungeonInfo);

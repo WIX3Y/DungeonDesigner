@@ -73,6 +73,14 @@ public class PapiDDExpansion extends PlaceholderExpansion {
             double time = milliTime / 1000.0;
             return String.format("%.2f", time);
         }
+        else if (params.startsWith("numb_runs_")) {
+            String dungeonID = params.substring(10);
+            int numbRuns = playerDataUtil.getPlayerNumbRunsData(player.getUniqueId().toString(), dungeonID);
+            if (numbRuns == -1) {
+                return null;
+            }
+            return String.valueOf(numbRuns);
+        }
 
         return null;
     }

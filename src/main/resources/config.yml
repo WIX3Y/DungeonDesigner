@@ -11,13 +11,17 @@
 #
 #                      List of Placeholders
 #
-#                      DD_time_testdungeon
+#                        DD_time_<dungeon>
 #         Player's fastest completion for specific dungeon
 #              Example usage: %DD_time_testdungeon%
 #
-#                    DD_completion_testdungeon
+#                     DD_completion_<dungeon>
 #     Player's max completion percentage for specific dungeon
 #            Example usage: %DD_completion_testdungeon%
+#
+#                     DD_numb_runs_<dungeon>
+#     Player's number of completed runs for specific dungeon
+#            Example usage: %DD_numb_runs_testdungeon%
 #
 #   ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 #
