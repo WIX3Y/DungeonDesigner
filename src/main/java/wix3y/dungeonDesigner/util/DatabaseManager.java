@@ -47,7 +47,7 @@ public class DatabaseManager {
      * @param columnNames list of column names
      * @param defaultValue the default value to set if the column does not exist
      */
-    public void initialize(String table, List<String> columnNames, int defaultValue) {
+    public void initialize(String table, List<String> columnNames, String defaultValue) {
         if (columnNames.isEmpty()) {
             plugin.getLogger().info("No dungeons found.");
             return;
@@ -78,7 +78,7 @@ public class DatabaseManager {
      * @param columns list of columns to be added if they don't exist
      * @param defaultValue the default value to set
      */
-    private void addMissingColumns(String table, List<String> columns, int defaultValue) {
+    private void addMissingColumns(String table, List<String> columns, String defaultValue) {
         for (String column: columns) {
             try (Connection connection = dataSource.getConnection()) {
                 // Check if the column exists in the table
