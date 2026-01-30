@@ -34,31 +34,31 @@
 #           Required permission: dungeondesigner.manage
 #           Example usage: /ddstart TestDungeon 1 WIX3Y
 #
-#        ddunlock <dungeon> <instance> <reward-id> <player>
-#         Unlocks a dungeon gate and reward for a specific
+#       ddunlock <dungeon> <instance> <reward-id> <player>
+#        Unlocks a dungeon gate and reward for a specific
 #                    player running a dungeon
 #           Required permission: dungeondesigner.manage
-#          Example usage: /ddunlock TestDungeon 1 0 WIX3Y
+#         Example usage: /ddunlock TestDungeon 1 0 WIX3Y
 #
 #             ddreward <dungeon> <instance> <player>
-#       Sets a dungeon as completed for a player, calculating
-#          the dungeon run time and closing the main gate
+#      Sets a dungeon as completed for a player, calculating
+#         the dungeon run time and closing the main gate
 #           Required permission: dungeondesigner.manage
-#           Example usage: /ddreward TestDungeon 1 WIX3Y
+#          Example usage: /ddreward TestDungeon 1 WIX3Y
 #
-#              ddend <dungeon> <instance> <player>
-#        Stops a dungeon run and sets dungeon as unoccupied
+#               ddend <dungeon> <instance> <player>
+#       Stops a dungeon run and sets dungeon as unoccupied
 #           Required permission: dungeondesigner.manage
-#           Example usage: /ddend TestDungeon 1 WIX3Y
+#            Example usage: /ddend TestDungeon 1 WIX3Y
 #
-#           ddaddreward <dungeon-id> <reward-id> <chance>
-#         Add a reward to a specific loot chest loot table
+#          ddaddreward <dungeon-id> <reward-id> <chance>
+#        Add a reward to a specific loot chest loot table
 #                     for a specific dungeon
 #          Required permission: dungeondesigner.addreward
-#           Example usage: /ddaddreward TestDungeon 0 1
+#           Example usage: /ddaddreward TestDungeon 0 10
 #
-#                           ddreload
-#           Reloads the config file, a server restart is
+#                            ddreload
+#          Reloads the config file, a server restart is
 #            required to apply changes to the database
 #           Required permission: dungeondesigner.reload
 #                    Example usage: /ddreload
