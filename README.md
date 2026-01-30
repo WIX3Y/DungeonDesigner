@@ -1,5 +1,5 @@
-# Advanced Artifacts
-Collect and merge powerful artifacts to gain increasing bonuses to damage and defense against specific mobs or actions.
+# Dungeon Designer
+Design custom dungeons with key-locked gates, timers, and challenges. Track completion times and reward players for finishing the dungeon or completing bonus objectives.
 
 ## Commands
 ### ddstart \<dungeon\> \<instance\> \<player\>
